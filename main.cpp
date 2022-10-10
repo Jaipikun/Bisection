@@ -5,7 +5,7 @@
 
 using namespace std;
 
-float function(float x,unsigned int type){
+float function(float x,unsigned int type){//function selection
 
     try{
         if(type<1 && type>4){
@@ -41,7 +41,7 @@ float function(float x,unsigned int type){
     return 0;
 }
 
-float bisection(float minimum_x,float maximum_x,unsigned int type){
+float bisection(float minimum_x,float maximum_x,unsigned int type){//function for splitting function in range(min_x,max_x) untill x-intercept's found
 
     float x_intercept = (minimum_x + maximum_x) / 2.0;
 
@@ -69,7 +69,7 @@ float bisection(float minimum_x,float maximum_x,unsigned int type){
 
 
 
-main(){
+main(){//basic test
     cout<<bisection(1,4,1);
     return 0;
 }
