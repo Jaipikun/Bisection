@@ -1,11 +1,12 @@
 #include <iostream>
 #include <cmath>
+#include <iomanip>
 
-#define LAMBDA 0.0000001
+#define LAMBDA 0.000000000000001
 
 using namespace std;
 
-float function(float x,unsigned int type){//function selection
+double function(double x,unsigned int type){//function selection
 
     try{
         if(type<1 && type>4){
@@ -41,9 +42,9 @@ float function(float x,unsigned int type){//function selection
     return 0;
 }
 
-float bisection(float minimum_x,float maximum_x,unsigned int type){//function for splitting function in range(min_x,max_x) untill x-intercept's found
+double bisection(double minimum_x,double maximum_x,unsigned int type){//function for splitting function in range(min_x,max_x) untill x-intercept's found
 
-    float x_intercept = (minimum_x + maximum_x) / 2.0;
+    double x_intercept = (minimum_x + maximum_x) / 2.0;
 
     while(abs(function(x_intercept,type))>LAMBDA){
         
@@ -70,6 +71,7 @@ float bisection(float minimum_x,float maximum_x,unsigned int type){//function fo
 
 
 main(){//basic test
+    cout<<setprecision(20);
     cout<<bisection(1,4,1);
     return 0;
 }
