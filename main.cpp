@@ -1,62 +1,52 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
+#include <fstream>
 
 #define LAMBDA 0.000000000000001
 
 using namespace std;
 
-double function(double x,unsigned int type){//function selection
-
-    try{
-        if(type<1 && type>4){
-            throw ("Wrong type");
-        }
-
-        float example_function;
-
-        if(type == 1){
-            example_function = sin(x);
-        }
-
-        else if(type == 2){
-            example_function = cos(x);
-        }
-
-        else if(type == 3){
-            example_function = tan(x);
-        }
-
-        else{
-            example_function = x;
-        }
-
-        return example_function;
-    }
-
-    catch(char*err){
-        cout<<err;
-    }
-    
-
-    return 0;
+double Test_function(double x)
+{
+    double function = sin(x);
+    return function;
 }
 
-double bisection(double minimum_x,double maximum_x,unsigned int type){//function for splitting function in range(min_x,max_x) untill x-intercept's found
+double Test_function2(double x)
+{
+    double function = (x-2.34)*(x+2.521);
+    return function;
+}
+
+double bisection(double minimum_x,double maximum_x,double (*function)(double))
+{
+    ofstream data;
+    data.open("bisection.txt");
+    data.precision(20);
 
     double x_intercept = (minimum_x + maximum_x) / 2.0;
 
-    while(abs(function(x_intercept,type))>LAMBDA){
+    if(function(minimum_x)*function(x_intercept)<=0 && function(maximum_x)*function(x_intercept)<=0)
+    {
+        data<<bisection(x_intercept,maximum_x,function)<<endl;
+    }
+
+    while(abs(function(x_intercept))>LAMBDA)
+    {
         
-        if(function(minimum_x,type)*function(x_intercept,type)<=0){
+        if(function(minimum_x)*function(x_intercept)<=0)
+        {
             maximum_x = x_intercept;
         }
 
-        else if(function(maximum_x,type)*function(x_intercept,type)<=0){
+        else if(function(maximum_x)*function(x_intercept)<=0)
+        {
             minimum_x = x_intercept;
         }
 
-        else{
+        else
+        {
             cout<<"\nNo x-intercepts in this range\n";
         }
 
@@ -64,7 +54,9 @@ double bisection(double minimum_x,double maximum_x,unsigned int type){//function
     
     }
 
-    return(x_intercept);
+    data<<x_intercept<<endl;
+    data.close();
+    return x_intercept;
 
 }
 
@@ -72,6 +64,9 @@ double bisection(double minimum_x,double maximum_x,unsigned int type){//function
 
 main(){//basic test
     cout<<setprecision(20);
-    cout<<bisection(1,4,1);
+    
+    bisection(-5,5,Test_function2);
+
+    bisection(1,4,Test_function);
     return 0;
 }
