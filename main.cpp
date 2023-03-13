@@ -67,6 +67,6 @@ main(){//basic test
     
     bisection(-5,5,Test_function2);
 
-    bisection(1,4,Test_function);
+    //bisection(1,4,Test_function);
     return 0;
 }
